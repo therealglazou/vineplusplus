@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "VinePlusPlus",
+    "version": "0.1",
+    "description": "A little helper extension for Amazon Vine users",
+    "icons": {
+        "128": "128.png"
+    },
+    
+    "permissions": ["storage", "webNavigation"],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {},
+    "content_scripts": [
+        {
+            "matches": ["https://www.amazon.fr/vine/vine-items*"],
+            "js": ["content.js"]
+        }
+    ]
+}
