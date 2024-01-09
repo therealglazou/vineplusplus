@@ -1,3 +1,3 @@
 chrome.runtime.onInstalled.addListener(() => {
-    console.log("VinePlusPlus installed");
+    console.log("Vine++ installed");
 });
