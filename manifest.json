@@ -15,7 +15,13 @@
     "action": {},
     "content_scripts": [
         {
-            "matches": ["https://www.amazon.fr/vine/vine-items*"],
+            "matches": [
+              "https://www.amazon.fr/vine/vine-items*"
+              , "https://www.amazon.com/vine/vine-items*"
+              , "https://www.amazon.de/vine/vine-items*"
+              , "https://www.amazon.es/vine/vine-items*"
+              , "https://www.amazon.co.uk/vine/vine-items*"
+            ],
             "js": ["content.js"]
         }
     ]
