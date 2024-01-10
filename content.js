@@ -59,6 +59,13 @@ class VinePlusPlus {
             aSpan.parentNode.parentNode.setAttribute("title", aSpan.textContent.trim());
         });
 
+        const navigation = document.querySelector("div[role=navigation]:has(ul.a-pagination)");
+        if (navigation) {
+          const navigationClone = navigation.cloneNode(true);
+          const parent = navigation.parentNode;
+          parent.insertBefore(navigationClone, parent.firstChild);
+        }
+
         // and finally retrieve - if any - the last filter from the local storage
         chrome.storage.local.get(this.#localStorageItem)
             .then((aResult) => {
