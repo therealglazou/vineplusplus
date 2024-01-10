@@ -22,6 +22,9 @@ class VinePlusPlus {
   // selector matching the line containing the "for you", "recommended" and "all items" Vine buttons
   #vineButtonsBoxSelector = ".vvp-items-button-and-search-container";
 
+  #closeButtonData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAcCAYAAACQ0cTtAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAABYlAAAWJQFJUiTwAAAAB3RJTUUH6AEKCDohA81lBAAAAsJJREFUSMe9lt9Lk2EUxz9nmzPnRHO2SIJWaBIRoZVIFKiRVjeVBoE3XUh/QaR1EwRepFl/QEbUTV1E0lWgwRL6qQhBUETTfhGmZv5AN51bO120d+ja5qu99MADL897eD6Hc77nPEdUlf+xpHrgoJiBeUTqF2BbDLwxcAFqg6ANRnNgeELVbwqYDrZbpCwAx6OwV0EyXgJRB7yogNvPVGdXBSsQOR2Ckwr2VYUKwgVwd1z1kSmYW+RcGKr+JT9O6Amq3swIc4mcj0ClFYJwQm9QtWvpmc34yBdpsgoEsAh1XpFjf8FKRXbOwwmr5T4NTQdE8pbBPkNDDFDQpB2yw1OFcIp/xp61Q18shU0MnINwJgErESlR2JXKsyzoaYZbHrgKLKQwmdkCV5rhThY8T3VHBPYnYCOwL10YolDZB+5TMOyBa0nAGR+0H4ERPxRFoSJNOTjWi9QA2CJQlg6mUByAliXAzjhw2gft9TDqh6IAtAL5GcRSCiB2uAEUZEq0Db6VQkc1zD2ArXkQqoOxJSDPCsX+JqLa5lBwywqqisHmALQAHY3wCcAsKO6s21CjmJFxDFwxWLdE1i4gx3wnA5tA0ITxZAm018KEH4r6wN0AXzdABxAy4WjQgH03AzoEP+Khu2CIxizQDuMANgd8yGA3lQRqBQqNHCYB59Ndsg4+Atg2wmCGZtqXBPIki8YAOqA/XQVNq/Ymun6WSJvC9hSGP53wZBFqgcI0mR/JgpeLcJQ/olm2HDCwoNqZgHlFyifhotWNWOGXDy4NqwYSjXhc9XU2PLYalg3dBmjZexZU7RJ4axXIAa9CqvdTPp4AEdXLVgDjebpuauDJFTkbhsNrSZMTHoZU761qlPOKlE9BYxqVpmy2xdD9RfXdqudGY/lEdozBniiUKWxSyAVUYC4u+/fFMDikOrTmIdXy8bumv+o33300phxkpOIAAAAASUVORK5CYII=";
+  #closeButtonStyle = "width: 16px; position: relative; top: 6px; left: -20px; cursor: pointer";
+
   /**
    * Constructor
    */
@@ -38,6 +41,9 @@ class VinePlusPlus {
         // create a search box
         const searchBox = document.createElement("input");
         if (searchBox) { // sanity check
+            const div = document.createElement("div");
+            flexingButtonContainer.appendChild(div);
+
             // assign an ID, just in case we need it in the future
             searchBox.id = this.#searchBoxId;
             // assign the input type
@@ -46,11 +52,20 @@ class VinePlusPlus {
             searchBox.placeholder = this.#searchBoxPlaceholder;
 
             // add to the box
-            flexingButtonContainer.appendChild(searchBox);
+            div.appendChild(searchBox);
             // modify the filter every time the value of the search box is modified
             searchBox.addEventListener("input", (aEvent) => {
                 this.ApplyFilter(searchBox.value);
             }, false);
+
+            const imageButton = document.createElement("img");
+            imageButton.src = this.#closeButtonData;
+            imageButton.style = this.#closeButtonStyle;
+            imageButton.addEventListener("click", (aEvent) => {
+                searchBox.value = "";
+                this.ApplyFilter("");
+            });
+            div.appendChild(imageButton);
         }
 
         // for each Vine item, find the span with the full description and set the title
